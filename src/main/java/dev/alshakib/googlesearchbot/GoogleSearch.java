@@ -35,7 +35,7 @@ public class GoogleSearch {
 
     private Elements fetchWebResultElements(String query) throws Exception {
         if (!query.isEmpty()) {
-            Document document = Jsoup.connect("https://www.google.com/search?num=50&hl=EN&q="
+            Document document = Jsoup.connect("https://www.google.com/search?num=60&hl=EN&q="
                     + URLEncoder.encode(query, String.valueOf(StandardCharsets.UTF_8)))
                     .userAgent("Mozilla/5.0 (X11; Fedora; Linux x86_64; rv:75.0) Gecko/20100101 Firefox/75.0")
                     .referrer("https://www.google.com")
