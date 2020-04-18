@@ -52,7 +52,8 @@ public class Robot extends TelegramLongPollingBot {
         String query = inlineQuery.getQuery().trim();
         if (!query.isEmpty()) {
             if (ADMIN_ONLY_MODE) {
-                if (inlineQuery.getFrom().getId() == ADMIN_USER_ID || inlineQuery.getFrom().getUserName().equals(ADMIN_USERNAME)) {
+                if (inlineQuery.getFrom().getId() == ADMIN_USER_ID || inlineQuery.getFrom()
+                        .getUserName().equals(ADMIN_USERNAME)) {
                     fetchDuckDuckGoQuery(inlineQuery);
                 } else {
                     InputTextMessageContent messageContent = new InputTextMessageContent();
@@ -77,7 +78,8 @@ public class Robot extends TelegramLongPollingBot {
 
     private void handleIncomingMessage(Message message) throws TelegramApiException {
         if (ADMIN_ONLY_MODE) {
-            if (message.getFrom().getId() == ADMIN_USER_ID || message.getFrom().getUserName().equals(ADMIN_USERNAME)) {
+            if (message.getFrom().getId() == ADMIN_USER_ID || message.getFrom()
+                    .getUserName().equals(ADMIN_USERNAME)) {
                 sendIntroMessage(message);
             } else {
                 SendMessage unauthorizedMessage = new SendMessage();
@@ -105,7 +107,8 @@ public class Robot extends TelegramLongPollingBot {
         SendMessage sendMessage = new SendMessage();
         sendMessage.setChatId(message.getChatId());
         sendMessage.setParseMode("HTML");
-        sendMessage.setText("To search the Web type <code>@" + getBotUsername() + " something</code> in the message field.");
+        sendMessage.setText("To search the Web type <code>@" + getBotUsername() +
+                " something</code> in the message field.");
         InlineKeyboardMarkup searchNowInlineKeyboard = new InlineKeyboardMarkup();
         ArrayList<List<InlineKeyboardButton>> buttons = new ArrayList<>();
         List<InlineKeyboardButton> button = new ArrayList<>();

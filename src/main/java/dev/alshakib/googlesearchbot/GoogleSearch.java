@@ -35,7 +35,8 @@ public class GoogleSearch {
 
     private Elements fetchWebResultElements(String query) throws Exception {
         if (!query.isEmpty()) {
-            Document document = Jsoup.connect("https://www.google.com/search?num=50&hl=EN&q=" + URLEncoder.encode(query, String.valueOf(StandardCharsets.UTF_8)))
+            Document document = Jsoup.connect("https://www.google.com/search?num=50&hl=EN&q="
+                    + URLEncoder.encode(query, String.valueOf(StandardCharsets.UTF_8)))
                     .userAgent("Mozilla/5.0 (X11; Fedora; Linux x86_64; rv:75.0) Gecko/20100101 Firefox/75.0")
                     .referrer("https://www.google.com")
                     .followRedirects(true)
@@ -64,10 +65,12 @@ public class GoogleSearch {
             }
             int articleCount = 0;
             for (Element element : searchResultElements) {
-                String resultTitle = element.getElementsByClass("r").get(0).getElementsByTag("h3").text().trim();
+                String resultTitle = element.getElementsByClass("r").get(0)
+                        .getElementsByTag("h3").text().trim();
                 String resultDescription = element.getElementsByClass("st").text().trim();
-                String resultURL = element.getElementsByClass("r").get(0).getElementsByTag("a").get(0).attr("abs:href").trim();
-                if (!resultTitle.equals("")) {
+                String resultURL = element.getElementsByClass("r").get(0)
+                        .getElementsByTag("a").get(0).attr("abs:href").trim();
+                if (!resultTitle.equals("") && !resultDescription.equals("") && !resultURL.equals("")) {
                     InputTextMessageContent messageContent = new InputTextMessageContent();
                     messageContent.enableHtml(true);
                     messageContent.setMessageText("<a href='" + resultURL + "'>" + resultTitle + "</a>");
