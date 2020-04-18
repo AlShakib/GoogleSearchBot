@@ -1,6 +1,6 @@
 <h1>Google Search Bot</h1>
 
-Google Search Bot is a [Telegram bot][https://core.telegram.org/bots] project that searches from the Web. It crawls search results from the Google and pass first 50 results to the Telegram bot as [InlineQueryResult](https://core.telegram.org/bots/api#inlinequeryresult).
+Google Search Bot is a [Telegram bot](https://core.telegram.org/bots) project that searches from the Web. It crawls search results from the Google and pass first 50 results to the Telegram bot as [InlineQueryResult](https://core.telegram.org/bots/api#inlinequeryresult).
 
 ## Table of Contents
 
@@ -64,7 +64,9 @@ export ADMIN_ONLY_MODE=TRUE
 
 Clone this repository
 
-`git clone git@gitlab.com:AlShakib/GoogleSearchBot.git` 
+```bas
+git clone git@gitlab.com:AlShakib/GoogleSearchBot.git
+```
 
 Change current directory to the repository
 
