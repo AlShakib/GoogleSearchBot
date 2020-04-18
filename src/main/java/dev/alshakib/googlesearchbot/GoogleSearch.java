@@ -77,8 +77,8 @@ public class GoogleSearch {
                     InlineQueryResultArticle article = new InlineQueryResultArticle();
                     article.setInputMessageContent(messageContent);
                     article.setId(inlineQuery.getId() + articleCount);
-                    article.setTitle(resultTitle);
-                    article.setDescription(resultDescription);
+                    article.setTitle(getLimitedString(resultTitle));
+                    article.setDescription(getLimitedString(resultDescription));
                     article.setUrl(resultURL);
                     searchResults.add(article);
                     ++articleCount;
@@ -99,5 +99,13 @@ public class GoogleSearch {
             return searchResults;
         }
         return searchResults;
+    }
+
+    private String getLimitedString(String text) {
+        int maxLength = Math.min(text.length(), 150);
+        if (text.length() > maxLength) {
+            text = text.substring(0, maxLength) + "..";
+        }
+        return text;
     }
 }
