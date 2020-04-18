@@ -72,8 +72,7 @@ public class GoogleSearch {
                         .getElementsByTag("a").get(0).attr("abs:href").trim();
                 if (!resultTitle.equals("") && !resultDescription.equals("") && !resultURL.equals("")) {
                     InputTextMessageContent messageContent = new InputTextMessageContent();
-                    messageContent.enableHtml(true);
-                    messageContent.setMessageText("<a href='" + resultURL + "'>" + resultTitle + "</a>");
+                    messageContent.setMessageText(resultURL);
                     InlineQueryResultArticle article = new InlineQueryResultArticle();
                     article.setInputMessageContent(messageContent);
                     article.setId(inlineQuery.getId() + articleCount);
