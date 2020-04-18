@@ -54,7 +54,7 @@ export ADMIN_USERNAME=<YOUR_TELEGRAM_USERNAME_WITHOUT_@>
 export ADMIN_USER_ID=<YOUR_TELEGRAM_USERID>
 ```
 
-If your want to use this bot personally, set
+If you want to use this bot personally, set
 
 ```bash
 export ADMIN_ONLY_MODE=TRUE
