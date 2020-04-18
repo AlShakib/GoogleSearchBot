@@ -49,15 +49,15 @@ Set these environment variable
 
 ```bash
 export TELEGRAM_BOT_API_TOKEN=<YOUR_BOT_API_TOKEN>
-export TELEGRAM_BOT_USERNAME=<BOT_USERNAME_WITHOUT_@>
-export ADMIN_USERNAME=<YOUR_TELEGRAM_USERNAME_WITHOUT_@>
-export ADMIN_USER_ID=<YOUR_TELEGRAM_USERID>
+export TELEGRAM_BOT_USERNAME=<BOT_USERNAME>
+export ADMIN_USERNAME=<YOUR_TELEGRAM_USERNAME>
 ```
 
 If you want to use this bot personally, set
 
 ```bash
 export ADMIN_ONLY_MODE=TRUE
+export ADMIN_USER_ID=<YOUR_TELEGRAM_USERID>
 ```
 
 ### Running the bot
