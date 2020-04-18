@@ -16,19 +16,86 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Robot extends TelegramLongPollingBot {
-    private final String ADMIN_USERNAME = System.getenv("ADMIN_USERNAME");
-    private final long ADMIN_USER_ID = Integer.parseInt(System.getenv("ADMIN_USER_ID"));
-    private final boolean ADMIN_ONLY_MODE = Boolean.parseBoolean(System.getenv("ADMIN_ONLY_MODE"));
+public class Bot extends TelegramLongPollingBot {
+
+    private final String botToken;
+    private final String botUsername;
+    private String adminUsername;
+    private long adminUserId;
+    private boolean adminOnlyMode;
+
+    public Bot(String botToken, String botUsername) {
+        botToken = botToken.trim();
+        botUsername = botUsername.trim();
+        if (botToken.isEmpty()) {
+            throw new IllegalArgumentException("Bot Token is empty");
+        }
+        if (botUsername.isEmpty()) {
+            throw new IllegalArgumentException("Bot Username is empty");
+        }
+        this.botToken = botToken;
+        this.botUsername = extractUsername(botUsername);
+    }
+
+    public Bot(String botToken, String botUsername, long adminUserId, boolean adminOnlyMode) {
+        this(botToken, botUsername);
+        if (adminOnlyMode) {
+            if (adminUserId == 0) {
+                throw new IllegalArgumentException("ADMIN_ONLY_MODE is set but ADMIN_USER_ID is not set");
+            }
+        }
+        this.adminUserId = adminUserId;
+        this.adminOnlyMode = adminOnlyMode;
+    }
+
+    public Bot(String botToken, String botUsername, String adminUsername, long adminUserId, boolean adminOnlyMode) {
+        this(botToken, botUsername, adminUserId, adminOnlyMode);
+        this.adminUsername = extractUsername(adminUsername);
+    }
+
+    public void setAdminUsername(String adminUsername) {
+        this.adminUsername = extractUsername(adminUsername);
+    }
+
+    public void setAdminUserId(long adminUserId) {
+        this.adminUserId = adminUserId;
+    }
+
+    public void setAdminOnlyMode(boolean adminOnlyMode) {
+        this.adminOnlyMode = adminOnlyMode;
+    }
+
+    public String getAdminUsername() {
+        return adminUsername;
+    }
+
+    public long getAdminUserId() {
+        return adminUserId;
+    }
+
+    public boolean isAdminOnlyMode() {
+        return adminOnlyMode;
+    }
+
+    private String extractUsername(String username) {
+        if (username != null) {
+            username = username.trim();
+            if (username.startsWith("@")) {
+                return username.substring(1);
+            }
+            return username;
+        }
+        return "";
+    }
 
     @Override
     public String getBotToken() {
-        return System.getenv("TELEGRAM_BOT_API_TOKEN");
+        return botToken;
     }
 
     @Override
     public String getBotUsername() {
-        return System.getenv("TELEGRAM_BOT_USERNAME");
+        return botUsername;
     }
 
     @Override
@@ -51,20 +118,19 @@ public class Robot extends TelegramLongPollingBot {
     private void handleIncomingInlineQuery(InlineQuery inlineQuery) throws TelegramApiException {
         String query = inlineQuery.getQuery().trim();
         if (!query.isEmpty()) {
-            if (ADMIN_ONLY_MODE) {
-                if (inlineQuery.getFrom().getId() == ADMIN_USER_ID || inlineQuery.getFrom()
-                        .getUserName().equals(ADMIN_USERNAME)) {
+            if (adminOnlyMode) {
+                if (inlineQuery.getFrom().getId() == adminUserId) {
                     fetchDuckDuckGoQuery(inlineQuery);
                 } else {
                     InputTextMessageContent messageContent = new InputTextMessageContent();
                     messageContent.enableHtml(true);
                     messageContent.setMessageText("<b>You are not authorized to access this bot.</b>\n\n" +
-                            "For further information please contact @" + ADMIN_USERNAME);
+                            "For further information please contact @" + adminUsername);
                     InlineQueryResultArticle unauthorizedArticle = new InlineQueryResultArticle();
                     unauthorizedArticle.setInputMessageContent(messageContent);
                     unauthorizedArticle.setId("UnauthorizedAccess");
                     unauthorizedArticle.setTitle("You are not authorized to access this bot");
-                    unauthorizedArticle.setDescription("For further information please contact @" + ADMIN_USERNAME);
+                    unauthorizedArticle.setDescription("For further information please contact @" + adminUsername);
                     AnswerInlineQuery answerInlineQuery = new AnswerInlineQuery();
                     answerInlineQuery.setInlineQueryId(inlineQuery.getId());
                     answerInlineQuery.setResults(unauthorizedArticle);
@@ -77,16 +143,15 @@ public class Robot extends TelegramLongPollingBot {
     }
 
     private void handleIncomingMessage(Message message) throws TelegramApiException {
-        if (ADMIN_ONLY_MODE) {
-            if (message.getFrom().getId() == ADMIN_USER_ID || message.getFrom()
-                    .getUserName().equals(ADMIN_USERNAME)) {
+        if (adminOnlyMode) {
+            if (message.getFrom().getId() == adminUserId) {
                 sendIntroMessage(message);
             } else {
                 SendMessage unauthorizedMessage = new SendMessage();
                 unauthorizedMessage.setChatId(message.getChatId());
                 unauthorizedMessage.setParseMode("HTML");
                 unauthorizedMessage.setText("<b>You are not authorized to access this bot.</b>\n\n" +
-                        "For further information please contact @" + ADMIN_USERNAME);
+                        "For further information please contact @" + adminUsername);
                 execute(unauthorizedMessage);
             }
         } else {

@@ -12,9 +12,18 @@ public class Main {
         ApiContextInitializer.init();
         TelegramBotsApi telegramBotsApi = new TelegramBotsApi();
         try {
-            telegramBotsApi.registerBot(new Robot());
-        } catch (TelegramApiRequestException e) {
-            e.printStackTrace();
+            String botToken = System.getenv("TELEGRAM_BOT_API_TOKEN");
+            String botUsername = System.getenv("TELEGRAM_BOT_USERNAME");
+            String adminUsername = System.getenv("ADMIN_USERNAME");
+            long adminUserId = 0;
+            if (System.getenv("ADMIN_USER_ID") != null) {
+                adminUserId = Long.parseLong(System.getenv("ADMIN_USER_ID"));
+            }
+            boolean adminOnlyMode = Boolean.parseBoolean(System.getenv("ADMIN_ONLY_MODE"));
+            Bot googleSearchBot = new Bot(botToken, botUsername, adminUsername, adminUserId, adminOnlyMode);
+            telegramBotsApi.registerBot(googleSearchBot);
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
         if (System.getenv("PORT") != null) {
             try (ServerSocket serverSocket = new ServerSocket(Integer.parseInt(System.getenv("PORT")))) {
