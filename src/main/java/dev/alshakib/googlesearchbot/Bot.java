@@ -124,8 +124,7 @@ public class Bot extends TelegramLongPollingBot {
                 } else {
                     InputTextMessageContent messageContent = new InputTextMessageContent();
                     messageContent.enableHtml(true);
-                    messageContent.setMessageText("<b>You are not authorized to access this bot.</b>\n\n" +
-                            "For further information please contact @" + adminUsername);
+                    messageContent.setMessageText(getUnauthorizedMessage());
                     InlineQueryResultArticle unauthorizedArticle = new InlineQueryResultArticle();
                     unauthorizedArticle.setInputMessageContent(messageContent);
                     unauthorizedArticle.setId("UnauthorizedAccess");
@@ -150,8 +149,7 @@ public class Bot extends TelegramLongPollingBot {
                 SendMessage unauthorizedMessage = new SendMessage();
                 unauthorizedMessage.setChatId(message.getChatId());
                 unauthorizedMessage.setParseMode("HTML");
-                unauthorizedMessage.setText("<b>You are not authorized to access this bot.</b>\n\n" +
-                        "For further information please contact @" + adminUsername);
+                unauthorizedMessage.setText(getUnauthorizedMessage());
                 execute(unauthorizedMessage);
             }
         } else {
@@ -182,5 +180,13 @@ public class Bot extends TelegramLongPollingBot {
         searchNowInlineKeyboard.setKeyboard(buttons);
         sendMessage.setReplyMarkup(searchNowInlineKeyboard);
         execute(sendMessage);
+    }
+
+    private String getUnauthorizedMessage() {
+        return "<b>You are not authorized to access this bot.</b>\n\n" +
+                "For further information please contact @" + adminUsername + "\n" +
+                "However you may host this bot by yourself.\n" +
+                "For more information about self hosting, please visit\n" +
+                "https://gitlab.com/AlShakib/GoogleSearchBot";
     }
 }
