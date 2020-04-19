@@ -71,13 +71,12 @@ public class GoogleSearch {
                 String resultDescription = element.getElementsByClass("st").text().trim();
                 String resultURL = element.getElementsByClass("r").get(0)
                         .getElementsByTag("a").get(0).attr("abs:href").trim();
-                resultURL = URLDecoder.decode(resultURL, StandardCharsets.UTF_8.toString());
                 if (!resultTitle.equals("") && !resultDescription.equals("") && !resultURL.equals("")) {
                     if (!resultURL.startsWith("http")) {
                         continue;
                     }
                     InputTextMessageContent messageContent = new InputTextMessageContent();
-                    messageContent.setMessageText(resultURL);
+                    messageContent.setMessageText(URLDecoder.decode(resultURL, StandardCharsets.UTF_8.toString()));
                     InlineQueryResultArticle article = new InlineQueryResultArticle();
                     article.setInputMessageContent(messageContent);
                     article.setId(inlineQuery.getId() + articleCount);
