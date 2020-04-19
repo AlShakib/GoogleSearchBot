@@ -9,6 +9,7 @@ import org.telegram.telegrambots.meta.api.objects.inlinequery.inputmessageconten
 import org.telegram.telegrambots.meta.api.objects.inlinequery.result.InlineQueryResult;
 import org.telegram.telegrambots.meta.api.objects.inlinequery.result.InlineQueryResultArticle;
 
+import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -36,7 +37,7 @@ public class GoogleSearch {
     private Elements fetchWebResultElements(String query) throws Exception {
         if (!query.isEmpty()) {
             Document document = Jsoup.connect("https://www.google.com/search?num=60&hl=EN&q="
-                    + URLEncoder.encode(query, String.valueOf(StandardCharsets.UTF_8)))
+                    + URLEncoder.encode(query, StandardCharsets.UTF_8.toString()))
                     .userAgent("Mozilla/5.0 (X11; Fedora; Linux x86_64; rv:75.0) Gecko/20100101 Firefox/75.0")
                     .referrer("https://www.google.com")
                     .followRedirects(true)
@@ -70,6 +71,7 @@ public class GoogleSearch {
                 String resultDescription = element.getElementsByClass("st").text().trim();
                 String resultURL = element.getElementsByClass("r").get(0)
                         .getElementsByTag("a").get(0).attr("abs:href").trim();
+                resultURL = URLDecoder.decode(resultURL, StandardCharsets.UTF_8.toString());
                 if (!resultTitle.equals("") && !resultDescription.equals("") && !resultURL.equals("")) {
                     if (!resultURL.startsWith("http")) {
                         continue;
