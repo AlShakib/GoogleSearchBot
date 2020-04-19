@@ -43,7 +43,7 @@ public class GoogleSearch {
                     .get();
             return document.getElementsByClass("rc");
         } else {
-            throw new NullPointerException();
+            throw new IllegalArgumentException("Search query is empty");
         }
     }
 

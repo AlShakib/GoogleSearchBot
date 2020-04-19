@@ -120,7 +120,7 @@ public class Bot extends TelegramLongPollingBot {
         if (!query.isEmpty()) {
             if (adminOnlyMode) {
                 if (inlineQuery.getFrom().getId() == adminUserId) {
-                    fetchDuckDuckGoQuery(inlineQuery);
+                    fetchGoogleSearch(inlineQuery);
                 } else {
                     InputTextMessageContent messageContent = new InputTextMessageContent();
                     messageContent.enableHtml(true);
@@ -137,7 +137,7 @@ public class Bot extends TelegramLongPollingBot {
                     execute(answerInlineQuery);
                 }
             } else {
-                fetchDuckDuckGoQuery(inlineQuery);
+                fetchGoogleSearch(inlineQuery);
             }
         }
     }
@@ -159,9 +159,9 @@ public class Bot extends TelegramLongPollingBot {
         }
     }
 
-    private void fetchDuckDuckGoQuery(InlineQuery inlineQuery) throws TelegramApiException {
-        GoogleSearch duckDuckGoQuery = new GoogleSearch(inlineQuery);
-        ArrayList<InlineQueryResult> results = duckDuckGoQuery.getSearchResults();
+    private void fetchGoogleSearch(InlineQuery inlineQuery) throws TelegramApiException {
+        GoogleSearch googleSearch = new GoogleSearch(inlineQuery);
+        ArrayList<InlineQueryResult> results = googleSearch.getSearchResults();
         AnswerInlineQuery answerInlineQuery = new AnswerInlineQuery();
         answerInlineQuery.setInlineQueryId(inlineQuery.getId());
         answerInlineQuery.setResults(results);
