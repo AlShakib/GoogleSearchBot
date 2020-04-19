@@ -71,6 +71,9 @@ public class GoogleSearch {
                 String resultURL = element.getElementsByClass("r").get(0)
                         .getElementsByTag("a").get(0).attr("abs:href").trim();
                 if (!resultTitle.equals("") && !resultDescription.equals("") && !resultURL.equals("")) {
+                    if (!resultURL.startsWith("http")) {
+                        continue;
+                    }
                     InputTextMessageContent messageContent = new InputTextMessageContent();
                     messageContent.setMessageText(resultURL);
                     InlineQueryResultArticle article = new InlineQueryResultArticle();
