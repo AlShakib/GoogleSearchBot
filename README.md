@@ -23,25 +23,27 @@ To run this bot, you will need
 
 ### Prerequisite (Linux):
 
-#### Install Java
+#### Install Java Development Kit
 
-For Debian and Ubuntu derivatives
+For Ubuntu,
 
 ```bash
 sudo apt install default-jre default-jdk
 ```
 
-For Fedora, CentOS and RedHat derivatives
+For Fedora,
 
 ```bash
-sudo apt install java-latest-openjdk java-latest-openjdk-devel
+sudo dnf install java-latest-openjdk java-latest-openjdk-devel
 ```
 
-For Arch Linux
+For Arch Linux,
 
 ```bash
 sudo pacman -S jre-openjdk jdk-openjdk
 ```
+
+You may find JDK for other distributions as well. Install them accordingly.
 
 #### Set environment variables
 
