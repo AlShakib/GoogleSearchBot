@@ -11,14 +11,26 @@ public class Main {
         ApiContextInitializer.init();
         TelegramBotsApi telegramBotsApi = new TelegramBotsApi();
         try {
-            String botToken = System.getenv("TELEGRAM_BOT_API_TOKEN");
-            String botUsername = System.getenv("TELEGRAM_BOT_USERNAME");
-            String adminUsername = System.getenv("ADMIN_USERNAME");
+            String botToken = "";
+            String botUsername = "";
+            String adminUsername = "";
             long adminUserId = 0;
+            boolean adminOnlyMode = false;
+            if (System.getenv("TELEGRAM_BOT_API_TOKEN") != null) {
+                botToken = System.getenv("TELEGRAM_BOT_API_TOKEN");
+            }
+            if (System.getenv("TELEGRAM_BOT_USERNAME") != null) {
+                botUsername = System.getenv("TELEGRAM_BOT_USERNAME");
+            }
+            if (System.getenv("ADMIN_USERNAME") != null) {
+                adminUsername = System.getenv("ADMIN_USERNAME");
+            }
             if (System.getenv("ADMIN_USER_ID") != null) {
                 adminUserId = Long.parseLong(System.getenv("ADMIN_USER_ID"));
             }
-            boolean adminOnlyMode = Boolean.parseBoolean(System.getenv("ADMIN_ONLY_MODE"));
+            if (System.getenv("ADMIN_ONLY_MODE") != null) {
+                adminOnlyMode = Boolean.parseBoolean(System.getenv("ADMIN_ONLY_MODE"));
+            }
             Bot googleSearchBot = new Bot(botToken, botUsername, adminUsername, adminUserId, adminOnlyMode);
             telegramBotsApi.registerBot(googleSearchBot);
         } catch (Exception ex) {
