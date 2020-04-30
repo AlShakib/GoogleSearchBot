@@ -185,7 +185,7 @@ public class Bot extends TelegramLongPollingBot {
     private String getUnauthorizedMessage() {
         return "<b>You are not authorized to access this bot.</b>\n\n" +
                 "For further information please contact @" + adminUsername + "\n" +
-                "However you may host this bot by yourself.\n" +
+                "However, you may host this bot by yourself.\n" +
                 "For more information about self hosting, please visit\n" +
                 "https://gitlab.com/AlShakib/GoogleSearchBot";
     }
