@@ -1,10 +1,19 @@
-<h1>Google Search Bot</h1>
+# Google Search Bot
 
 Google Search Bot is a [Telegram bot](https://core.telegram.org/bots) project that searches from the Web. It crawls search results from Google and passes the first 50 results to the Telegram bot as [InlineQueryResult](https://core.telegram.org/bots/api#inlinequeryresult).
 
 ## Table of Contents
 
-[[_TOC_]]
+- [Screenshot](#screenshot)
+- [Usage](#usage)
+- [Getting Started](#getting-started)
+  * [Prerequisite (Linux):](#prerequisite--linux--)
+    + [Install Java Development Kit](#install-java-development-kit)
+    + [Set environment variables](#set-environment-variables)
+  * [Running the bot](#running-the-bot)
+- [Contributing](#contributing)
+- [Thanks to](#thanks-to)
+- [License](#license)
 
 ## Screenshot
 
