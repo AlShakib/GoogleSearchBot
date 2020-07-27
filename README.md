@@ -76,7 +76,7 @@ export ADMIN_USER_ID=<YOUR_TELEGRAM_USERID>
 Clone this repository
 
 ```bash
-git clone https://gitlab.com/AlShakib/GoogleSearchBot.git
+git clone https://github.com/AlShakib/GoogleSearchBot.git
 ```
 
 Change current directory to the repository
