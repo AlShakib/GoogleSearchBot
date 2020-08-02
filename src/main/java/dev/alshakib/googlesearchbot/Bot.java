@@ -187,6 +187,6 @@ public class Bot extends TelegramLongPollingBot {
                 "For further information please contact @" + adminUsername + "\n" +
                 "However, you may host this bot by yourself. " +
                 "For more information about self hosting, please visit: " +
-                "https://gitlab.com/AlShakib/GoogleSearchBot";
+                "https://github.com/AlShakib/GoogleSearchBot";
     }
 }
