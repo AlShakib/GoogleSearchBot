@@ -38,7 +38,7 @@ public class GoogleSearch {
         if (!query.isEmpty()) {
             Document document = Jsoup.connect("https://www.google.com/search?num=60&hl=EN&q="
                     + URLEncoder.encode(query, StandardCharsets.UTF_8.toString()))
-                    .userAgent("Mozilla/5.0 (X11; Fedora; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.122 Safari/537.36")
+                    .userAgent("Mozilla/5.0 (X11; Fedora; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.105 Safari/537.36")
                     .referrer("https://www.google.com")
                     .followRedirects(true)
                     .get();
